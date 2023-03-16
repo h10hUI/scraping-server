@@ -1,0 +1,17 @@
+{
+  "name": "scraping-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx typesync || :"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^19.7.5",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {}
+}
