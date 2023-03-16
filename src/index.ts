@@ -1,7 +1,23 @@
-const sayHello = (name: string) => {
-  return `Hello ${name}`;
+import puppeteer from 'puppeteer';
+
+// スクレイピングするための関数
+const scrape = async (query: string) => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(`https://www.google.com/search?q=${query}`);
+
+  const result = await page.$$eval('.tF2Cxc', (elements) => {
+    return elements.map((element) => {
+      return {
+        title: element.querySelector('.DKV0Md')?.textContent,
+        url: element.querySelector('.yuRUbf a')?.getAttribute('href'),
+      };
+    });
+  });
+
+  console.log(result);
+  await browser.close();
 }
 
-const greeting = sayHello('World')
-
-console.log(greeting)
+// 関数を実行
+scrape('aaa');
