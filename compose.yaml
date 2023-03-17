@@ -1,0 +1,10 @@
+# vi: ts=2 sw=2 fdm=indent fdl=1 :
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    ports:
+      - 3000:3000
+    tty: true
