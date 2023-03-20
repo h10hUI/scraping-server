@@ -4,8 +4,10 @@ import puppeteer from 'puppeteer';
 const scrape = async (query: string) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  // URL 定義
   await page.goto(`https://www.google.com/search?q=${query}`);
 
+  // タイトルと URL を取得
   const result = await page.$$eval('.tF2Cxc', (elements) => {
     return elements.map((element) => {
       return {
