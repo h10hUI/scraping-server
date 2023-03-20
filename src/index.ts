@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs';
+import moment from 'moment';
 
 // スクレイピングするための関数
 const scrape = async (query: string) => {
@@ -7,6 +8,8 @@ const scrape = async (query: string) => {
   const page = await browser.newPage();
   // URL 定義
   await page.goto(`https://www.google.com/search?q=${query}`);
+  // 日時取得
+  const date: string = moment().format('YYYYMMDDHHmmss');
 
   // タイトルと URL を取得
   const result = await page.$$eval('.tF2Cxc', (elements) => {
@@ -18,9 +21,9 @@ const scrape = async (query: string) => {
     });
   });
 
-  // 5分ごとにファイルに書き込み
+  // 5分ごとに日時をファイル名に入れて保存
   setInterval(() => {
-    fs.writeFile('result.json', JSON.stringify(result), (err) => {
+    fs.writeFile(`result-${date}.json`, JSON.stringify(result), (err) => {
       if (err) {
         console.log(err);
       }
