@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import fs from 'fs';
 
 // スクレイピングするための関数
 const scrape = async (query: string) => {
@@ -17,7 +18,9 @@ const scrape = async (query: string) => {
     });
   });
 
-  console.log(result);
+  // ファイルに書き込み
+  fs.writeFileSync('result.json', JSON.stringify(result));
+
   await browser.close();
 }
 
