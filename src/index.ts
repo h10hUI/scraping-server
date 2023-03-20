@@ -18,8 +18,14 @@ const scrape = async (query: string) => {
     });
   });
 
-  // ファイルに書き込み
-  fs.writeFileSync('result.json', JSON.stringify(result));
+  // 5分ごとにファイルに書き込み
+  setInterval(() => {
+    fs.writeFile('result.json', JSON.stringify(result), (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }, 300000);
 
   await browser.close();
 }
