@@ -1,19 +1,26 @@
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser, Page } from 'puppeteer';
 import fs from 'fs';
 import moment from 'moment';
 
+type ScrapeResult = {
+  title?: string | null,
+  url?: string | null,
+}
+
 // スクレイピングするための関数
 const scrape = async (query: string) => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  const browser: Browser = await puppeteer.launch();
+  const page: Page = await browser.newPage();
+
   // URL 定義
   await page.goto(`https://www.google.com/search?q=${query}`);
+
   // 日時取得
   const date: string = moment().format('YYYYMMDDHHmmss');
 
   // タイトルと URL を取得
-  const result = await page.$$eval('.tF2Cxc', (elements) => {
-    return elements.map((element) => {
+  const result: ScrapeResult[] = await page.$$eval('.tF2Cxc', (elements: Element[]) => {
+    return elements.map((element: Element): ScrapeResult => {
       return {
         title: element.querySelector('.DKV0Md')?.textContent,
         url: element.querySelector('.yuRUbf a')?.getAttribute('href'),
