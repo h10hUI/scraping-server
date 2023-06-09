@@ -2,6 +2,7 @@ import puppeteer, { Browser, Page } from 'puppeteer';
 import moment from 'moment';
 import { ScrapeResult } from '../types/types';
 import { writeToFile } from '../utils/fileUtils';
+import { saveResultToDb } from '../utils/dbUtils';
 
 export const scrape = async (query: string) => {
   const browser: Browser = await puppeteer.launch();
@@ -30,12 +31,15 @@ export const scrape = async (query: string) => {
   }
 
   // 5分ごとに日時をファイル名に入れて保存
+  // db にも保存
   setInterval(() => {
     writeToFile(`./db/result-${date}.csv`, csv, (err) => {
       if (err) {
         console.log(err);
       }
     });
+
+    saveResultToDb(result);
   }, 300000);
 
   await browser.close();
