@@ -21,9 +21,15 @@ const scrape = async (query: string) => {
     });
   });
 
+  // json を csv に変換
+  let csv = "title,url\n"; // ヘッダー項目
+  for (let item of result) {
+    csv += `"${item.title}","${item.url}"\n`;
+  }
+
   // 5分ごとに日時をファイル名に入れて保存
   setInterval(() => {
-    fs.writeFile(`result-${date}.json`, JSON.stringify(result), (err) => {
+    fs.writeFile(`result-${date}.csv`, csv, (err) => {
       if (err) {
         console.log(err);
       }
