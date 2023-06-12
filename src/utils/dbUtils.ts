@@ -2,15 +2,25 @@ import { db } from '../../db/db';
 import { ScrapeResult } from '../types/types';
 
 export const saveResultToDb = (results: ScrapeResult[]): void => {
-  const stmt = db.prepare('INSERT INTO results(title, url) VALUES (?, ?)');
-
+  // 重複チェックを行って、url が重複していたら、db に保存しない
+  // 重複していなかったら、db に保存する
   results.forEach((result) => {
-    stmt.run(result.title, result.url, (err: any) => {
+    const { url, title } = result;
+    const sql = 'SELECT * FROM results WHERE url = ?';
+
+    db.get(sql, [url], (err, row) => {
       if (err) {
         console.error(err.message);
       }
+
+      if (!row) {
+        const insert = 'INSERT INTO results (url, title) VALUES (?, ?)';
+        db.run(insert, [url, title], (err) => {
+          if (err) {
+            console.error(err.message);
+          }
+        });
+      }
     });
   });
-
-  stmt.finalize();
 };
