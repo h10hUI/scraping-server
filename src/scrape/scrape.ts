@@ -7,7 +7,7 @@ import { saveResultToDb } from '../utils/dbUtils';
 export const scrape = async (query: string) => {
   const browser: Browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    executablePath: '/usr/bin/chromium-browser',
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   });
   const page: Page = await browser.newPage();
 
