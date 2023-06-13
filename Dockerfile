@@ -11,7 +11,8 @@ WORKDIR /var/www/app
 COPY package.json yarn.lock ./
 
 USER app
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile \
+    && echo "alias ll='ls -alG'" >> ~/.bashrc
 
 COPY . .
 RUN yarn build
