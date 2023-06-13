@@ -9,7 +9,7 @@ const port = 3000;
 // ここで db からデータを取得して返す
 // このとき、db から取得したデータは ResultRow[] 型になっている
 // 結果は JSON で返す
-app.get('/api/results', async (req: Request, res: Response) => {
+app.get('/api/results/v1', async (req: Request, res: Response) => {
   db.all('SELECT * FROM results', (err, rows: ResultRow[]) => {
     if (err) {
       res.status(500).send({ error: err.message });
@@ -20,5 +20,5 @@ app.get('/api/results', async (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`This app listening at http://localhost:${port}`);
 });
