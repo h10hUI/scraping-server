@@ -1,11 +1,24 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+import { db } from '../../db/db';
+import { ResultRow } from '../types/types';
+
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-}
+// api/rusults を GET したときの処理
+// ここで db からデータを取得して返す
+// このとき、db から取得したデータは ResultRow[] 型になっている
+// 結果は JSON で返す
+app.get('/api/results', async (req: Request, res: Response) => {
+  db.all('SELECT * FROM results', (err, rows: ResultRow[]) => {
+    if (err) {
+      res.status(500).send({ error: err.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
-}
+});

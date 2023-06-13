@@ -3,6 +3,14 @@ type ScrapeResult = {
   url?: string | null,
 }
 
+type ResultRow = {
+  id: number,
+  title: string,
+  url: string,
+  created_at: string,
+}
+
 export {
   ScrapeResult,
+  ResultRow,
 }
