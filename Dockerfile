@@ -18,5 +18,3 @@ COPY . .
 RUN yarn build
 
 EXPOSE 3000
-
-CMD ["npx", "concurrently", "node dist/src/index.js", "node dist/src/api/index.js"]

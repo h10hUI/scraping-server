@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    command: yarn serve
     volumes:
       - .:/var/www/app
       - /var/www/app/node_modules
