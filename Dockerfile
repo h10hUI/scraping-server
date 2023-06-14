@@ -15,6 +15,5 @@ RUN yarn install --frozen-lockfile \
     && echo "alias ll='ls -alG'" >> ~/.bashrc
 
 COPY . .
-RUN yarn build
 
 EXPOSE 3000
