@@ -19,6 +19,9 @@ app.get('/api/results/v1', async (req: Request, res: Response) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`This app listening at http://localhost:${port}`);
-});
+// 開発環境でのみ実行する console.log
+if (process.env.NODE_ENV === 'development') {
+  app.listen(port, () => {
+    console.log(`This app listening at http://localhost:${port}`);
+  });
+}
