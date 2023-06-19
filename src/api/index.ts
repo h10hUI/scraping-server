@@ -1,8 +1,11 @@
 import express, { Request, Response } from 'express';
 import { db } from '../../db/db';
 import { ResultRow } from '../types/types';
+import { setupSecurity } from '../middleware/security';
 
 const app = express();
+setupSecurity(app);
+
 const port = 3000;
 
 // api/rusults を GET したときの処理
