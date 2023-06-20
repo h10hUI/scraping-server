@@ -2,9 +2,15 @@ import express, { Request, Response } from 'express';
 import { db } from '../../db/db';
 import { ResultRow } from '../types/types';
 import { setupSecurity } from '../middleware/security';
+import { limiter } from '../middleware/rateLimit';
 
 const app = express();
+
+// セキュリティの設定
 setupSecurity(app);
+
+// リクエストの制限
+app.use('/api/', limiter);
 
 const port = 3000;
 
