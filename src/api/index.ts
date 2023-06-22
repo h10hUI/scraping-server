@@ -3,6 +3,7 @@ import { db } from '../../db/db';
 import { ResultRow } from '../types/types';
 import { setupSecurity } from '../middleware/security';
 import { limiter } from '../middleware/rateLimit';
+import { setupLogging } from '../middleware/logging';
 
 const app = express();
 
@@ -11,6 +12,9 @@ setupSecurity(app);
 
 // リクエストの制限
 app.use('/api/', limiter);
+
+// ロギングの設定
+setupLogging(app);
 
 const port = 3000;
 
