@@ -6,6 +6,7 @@ import { limiter } from '../middleware/rateLimit';
 import { setupLogging } from '../middleware/logging';
 
 const app = express();
+const port = 3000;
 
 // セキュリティの設定
 setupSecurity(app);
@@ -15,8 +16,6 @@ app.use('/api/', limiter);
 
 // ロギングの設定
 setupLogging(app);
-
-const port = 3000;
 
 // api/rusults を GET したときの処理
 // ここで db からデータを取得して返す
