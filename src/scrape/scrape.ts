@@ -1,7 +1,9 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 import moment from 'moment';
+import fs from 'fs';
+import path from 'path';
 import { ScrapeResult } from '../types/types';
-import { writeToFile } from '../utils/fileUtils';
+import { writeToFile, deleteOldFiles } from '../utils/fileUtils';
 import { saveResultToDb } from '../utils/dbUtils';
 
 export const scrape = async (query: string) => {
@@ -16,6 +18,9 @@ export const scrape = async (query: string) => {
 
   // 日時取得
   const date: string = moment().format('YYYYMMDDHHmmss');
+
+  // db ディレクトリを定数化
+  const dbDirPath: string = path.resolve(__dirname, '../../db');
 
   // タイトルと URL を取得
   const result: ScrapeResult[] = await page.$$eval('.tF2Cxc', (elements: Element[]) => {
@@ -36,13 +41,21 @@ export const scrape = async (query: string) => {
   // 5分ごとに日時をファイル名に入れて保存
   // db にも保存
   setInterval(() => {
-    writeToFile(`./db/result-${date}.csv`, csv, (err) => {
+    // ./db/archives ディレクトリがなければ作成
+    // あればそこに `result-${date}.csv 形式で保存
+    if (!fs.existsSync(`${dbDirPath}/archives`)) {
+      fs.mkdirSync(`${dbDirPath}/archives`);
+    }
+
+    writeToFile(`${dbDirPath}/archives/result-${date}.csv`, csv, err => {
       if (err) {
         console.log(err);
       }
     });
 
     saveResultToDb(result);
+
+    deleteOldFiles(`${dbDirPath}/archives`);
   }, 300000);
 
   await browser.close();
