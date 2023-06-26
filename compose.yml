@@ -8,9 +8,10 @@ services:
     volumes:
       - .:/var/www/app
       - /var/www/app/node_modules
+      - /var/www/app/dist
     ports:
       - '3000:3000'
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
       - PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
