@@ -39,8 +39,10 @@ export const scrape = async (query: string) => {
     csv += `"${item.title}","${item.url}"\n`;
   }
 
-  // 5分ごとに日時をファイル名に入れて保存
+  // 設定時間ごとに日時をファイル名に入れて保存
   // db にも保存
+  const scrapeInterval = 5 * 60 * 1000;
+
   setInterval(() => {
     // ./db/archives ディレクトリがなければ作成
     // あればそこに `result-${date}.csv 形式で保存
@@ -57,7 +59,7 @@ export const scrape = async (query: string) => {
     saveResultToDb(result);
 
     deleteOldFiles(`${dbDirPath}/archives`);
-  }, 300000);
+  }, scrapeInterval);
 
   await browser.close();
 }
