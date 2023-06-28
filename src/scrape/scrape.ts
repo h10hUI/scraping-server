@@ -5,6 +5,7 @@ import path from 'path';
 import { ScrapeResult } from '../types/types';
 import { writeToFile, deleteOldFiles } from '../utils/fileUtils';
 import { saveResultToDb } from '../utils/dbUtils';
+import { logger } from '../middleware/logging';
 
 export const scrape = async (query: string) => {
   const browser: Browser = await puppeteer.launch({
@@ -49,7 +50,7 @@ export const scrape = async (query: string) => {
 
     writeToFile(`${dbDirPath}/archives/result-${date}.csv`, csv, err => {
       if (err) {
-        console.log(err);
+        logger.error(err);
       }
     });
 

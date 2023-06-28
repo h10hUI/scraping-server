@@ -3,7 +3,7 @@ import { db } from '../../db/db';
 import { ResultRow } from '../types/types';
 import { setupSecurity } from '../middleware/security';
 import { limiter } from '../middleware/rateLimit';
-import { setupLogging } from '../middleware/logging';
+import { setupLogging, logger } from '../middleware/logging';
 
 const app = express();
 const port = 3000;
@@ -34,6 +34,6 @@ app.get('/api/results/v1', async (req: Request, res: Response) => {
 // 開発環境でのみ実行する console.log
 if (process.env.NODE_ENV === 'development') {
   app.listen(port, () => {
-    console.log(`This app listening at http://localhost:${port}`);
+    logger.info(`This app listening at http://localhost:${port}`);
   });
 }

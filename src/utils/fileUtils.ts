@@ -1,10 +1,11 @@
 import fs from 'fs';
 import moment from 'moment';
+import { logger } from '../middleware/logging';
 
 export const writeToFile = (filePath: string, data: string, callback: (err: NodeJS.ErrnoException | null) => void) => {
   fs.writeFile(filePath, data, (err) => {
     if (err) {
-      console.log(err);
+      logger.error(err);
     }
 
     callback(err);
