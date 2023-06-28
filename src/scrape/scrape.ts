@@ -46,11 +46,11 @@ export const scrape = async (query: string) => {
   setInterval(() => {
     // ./db/archives ディレクトリがなければ作成
     // あればそこに `result-${date}.csv 形式で保存
-    if (!fs.existsSync(`${dbDirPath}/archives`)) {
-      fs.mkdirSync(`${dbDirPath}/archives`);
+    if (!fs.existsSync(path.join(dbDirPath, 'archives'))) {
+      fs.mkdirSync(path.join(dbDirPath, 'archives'));
     }
 
-    writeToFile(`${dbDirPath}/archives/result-${date}.csv`, csv, err => {
+    writeToFile(path.join(dbDirPath, 'archives', `result-${date}.csv`), csv, err => {
       if (err) {
         logger.error(err);
       }
@@ -58,7 +58,7 @@ export const scrape = async (query: string) => {
 
     saveResultToDb(result);
 
-    deleteOldFiles(`${dbDirPath}/archives`);
+    deleteOldFiles(path.join(dbDirPath, 'archives'));
   }, scrapeInterval);
 
   await browser.close();
