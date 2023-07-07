@@ -1,3 +1,3 @@
-import { scrape } from './scrape/scrape';
+import { scrape } from './scrape/scrape'
 
-scrape('aaa');
+scrape('aaa')
