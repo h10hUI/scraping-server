@@ -49,7 +49,7 @@
     "node": "18.15.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "yarn lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
