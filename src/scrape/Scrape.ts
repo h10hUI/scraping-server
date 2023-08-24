@@ -2,10 +2,10 @@ import puppeteer, { Browser, Page } from 'puppeteer'
 import moment from 'moment'
 import fs from 'fs'
 import path from 'path'
-import { ScrapeResult } from '../types/types'
-import { writeToFile, deleteOldFiles } from '../utils/fileUtils'
-import { saveResultToDb } from '../utils/dbUtils'
-import { logger } from '../middleware/logging'
+import { ScrapeResult } from '../types/Types'
+import { writeToFile, deleteOldFiles } from '../utils/FileUtils'
+import { saveResultToDb } from '../utils/DbUtils'
+import { logger } from '../middleware/Logging'
 
 export const scrape = async (query: string) => {
   const browser: Browser = await puppeteer.launch({

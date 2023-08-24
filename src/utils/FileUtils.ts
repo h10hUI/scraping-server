@@ -1,6 +1,6 @@
 import fs from 'fs'
 import moment from 'moment'
-import { logger } from '../middleware/logging'
+import { logger } from '../middleware/Logging'
 
 export const writeToFile = (
   filePath: string,
