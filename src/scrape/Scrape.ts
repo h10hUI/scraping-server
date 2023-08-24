@@ -9,6 +9,7 @@ import { logger } from '../middleware/Logging'
 
 export const scrape = async (query: string) => {
   const browser: Browser = await puppeteer.launch({
+    headless: 'new',
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   })
