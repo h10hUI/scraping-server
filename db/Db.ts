@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3'
-import { logger } from '../src/middleware/logging'
+import { logger } from '../src/middleware/Logging'
 
 export const db = new sqlite3.Database('./db/database.sqlite3', (err) => {
   if (err) {

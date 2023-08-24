@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express'
-import { db } from '../../db/db'
-import { ResultRow } from '../types/types'
-import { setupSecurity } from '../middleware/security'
-import { limiter } from '../middleware/rateLimit'
-import { setupLogging, logger } from '../middleware/logging'
+import { db } from '../../db/Db'
+import { ResultRow } from '../types/Types'
+import { setupSecurity } from '../middleware/Security'
+import { limiter } from '../middleware/RateLimit'
+import { setupLogging, logger } from '../middleware/Logging'
 
 const app = express()
 const port = 3000

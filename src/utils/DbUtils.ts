@@ -1,6 +1,6 @@
-import { db } from '../../db/db'
-import { ScrapeResult } from '../types/types'
-import { logger } from '../middleware/logging'
+import { db } from '../../db/Db'
+import { ScrapeResult } from '../types/Types'
+import { logger } from '../middleware/Logging'
 
 export const saveResultToDb = (results: ScrapeResult[]): void => {
   // 重複チェックを行って、url が重複していたら、db に保存しない
