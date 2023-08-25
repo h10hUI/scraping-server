@@ -1,3 +1,6 @@
+import 'dotenv/config'
 import { scrape } from './scrape/Scrape'
 
-scrape('aaa')
+const searchQuery: string = process.env.SEARCH_QUERY || ''
+
+scrape(searchQuery)

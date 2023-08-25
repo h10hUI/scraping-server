@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import puppeteer, { Browser, Page } from 'puppeteer'
 import moment from 'moment'
 import fs from 'fs'
@@ -16,7 +17,9 @@ export const scrape = async (query: string) => {
   const page: Page = await browser.newPage()
 
   // URL 定義
-  await page.goto(`https://www.google.com/search?q=${query}`)
+  const url: string = process.env.SCRAPE_URL || ''
+
+  await page.goto(`${url}/search?q=${query}`)
 
   // 日時取得
   const date: string = moment().format('YYYYMMDDHHmmss')
@@ -36,6 +39,7 @@ export const scrape = async (query: string) => {
 
   // json を csv に変換
   let csv = 'title,url\n' // ヘッダー項目
+
   for (const item of result) {
     csv += `"${item.title}","${item.url}"\n`
   }
