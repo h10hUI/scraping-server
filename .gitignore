@@ -136,3 +136,4 @@ dist
 result*.json
 result*.csv
 *database.sqlite3
+*dump*
