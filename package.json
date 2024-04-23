@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npx typesync@latest || :",
+    "preinstall": "npx typesync || :",
     "dev": "NODE_ENV=development concurrently \"nodemon --exec ts-node src/index.ts\" \"nodemon --exec ts-node src/api/index.ts\"",
     "build": "npx tsc@latest",
     "serve": "npx tsc@latest && concurrently \"node dist/src/index.js\" \"node dist/src/api/index.js\"",
