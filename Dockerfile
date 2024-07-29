@@ -1,4 +1,4 @@
-FROM node:18.15.0
+FROM node:20.16.0
 RUN apt-get update && apt-get install -y chromium sqlite3
 
 RUN groupadd app && useradd -m -g app app
